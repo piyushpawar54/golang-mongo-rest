@@ -12,14 +12,16 @@ func main() {
 	//Routes
 	r.GET("/Properties", up.GetProperties)
 	r.GET("/Properties/:id", up.GetPropertyById)
-	r.GET("/Properties/Citywise?city={city}&bedrooms={bedrooms}", up.FilterProperties)
+	r.GET("/properties/CityWise", up.FilterProperties)
 	r.POST("/Properties", up.InsertProperty)
-	r.DELETE("/Properties/:id", up.DeletePropety)
+	r.DELETE("/Properties/:id", up.DeleteProperty)
 }
 
 func getSession() *mgo.Session {
-	s, err := mgo.Dial("mongodb://localhost:27017")
+
+	s, err := mgo.Dial("mongodb://localhost:27017/?directConnection=true")
 	if err != nil {
+		println("Error is here: ")
 		panic(err)
 	}
 	return s
